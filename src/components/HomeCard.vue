@@ -27,7 +27,7 @@
     <v-row>
       <v-col>
         <div class="text-center mt-4 mb-4">
-          <v-btn dark color="red darken-3" rounded x-large>
+          <v-btn dark color="red darken-3" rounded x-large to="/cotacao">
             Peça uma cotação
           </v-btn>
         </div>

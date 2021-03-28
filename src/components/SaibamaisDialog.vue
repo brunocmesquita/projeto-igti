@@ -38,7 +38,9 @@
               </v-row>
             </v-card-text>
             <v-card-actions class="justify-end">
-              <v-btn dark color="red darken-3">Peça uma cotação</v-btn>
+              <v-btn dark color="red darken-3" to="/cotacao"
+                >Peça uma cotação</v-btn
+              >
               <v-spacer></v-spacer>
               <v-btn text @click="dialog.value = false">Close</v-btn>
             </v-card-actions>

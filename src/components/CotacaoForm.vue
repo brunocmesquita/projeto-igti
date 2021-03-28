@@ -1,12 +1,11 @@
 <template>
   <v-container>
-    <v-card width="400" class="mx-auto mt-5 grey lighten-3">
+    <v-card width="700" class="mx-auto mt-5 grey lighten-3">
       <v-card-title>
-        <h1 class="display-1">Register</h1>
+        <h1 class="display-1">Formulário de contato</h1>
       </v-card-title>
-      <v-card-text
-        >Cadastro permitido apenas para colaboradores da Casper
-        Seguros.</v-card-text
+      <v-card-text class="text-h6"
+        >Solicite aqui a cotação para o seu seguro</v-card-text
       >
       <v-card-text>
         <v-alert
@@ -22,23 +21,31 @@
             prepend-icon="mdi-account-circle"
           />
           <v-text-field
-            :type="showPassword ? 'text' : 'password'"
-            label="Senha"
-            v-model="password"
-            prepend-icon="mdi-lock"
-            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-            @click:append="showPassword = !showPassword"
-          />
-          <v-text-field
             label="E-mail"
             v-model="email"
             prepend-icon="mdi-email"
             :rules="[rules.required, rules.email]"
           />
+          <v-text-field
+            label="Número de telefone"
+            v-model="fone"
+            prepend-icon="mdi-cellphone"
+            type="number"
+            counter="11"
+          />
+          <v-select
+            :items="items"
+            v-model="insurance"
+            label="Seguro"
+            prepend-icon="mdi-briefcase"
+          ></v-select>
         </v-form>
       </v-card-text>
       <v-divider></v-divider>
       <v-card-actions>
+        <v-btn icon color="pink">
+          <v-icon>mdi-heart</v-icon>
+        </v-btn>
         <v-spacer></v-spacer>
         <v-btn color="red darken-3" dark @click="register">Cadastrar</v-btn>
       </v-card-actions>
@@ -51,9 +58,11 @@ import axios from 'axios';
 export default {
   data() {
     return {
+      items: ['Auto', 'Residencial', 'Vida'],
       name: '',
-      password: '',
       email: '',
+      fone: '',
+      insurance: '',
       error: undefined,
       showPassword: false,
       rules: {
@@ -69,14 +78,15 @@ export default {
   methods: {
     register() {
       axios
-        .post('http://localhost:8686/user', {
+        .post('http://localhost:8686/contact', {
           name: this.name,
-          password: this.password,
+          fone: this.fone,
           email: this.email,
+          insurance: this.insurance,
         })
         .then((res) => {
           console.log(res);
-          this.$router.push({ name: 'Login' });
+          this.$router.push({ name: 'Home' });
         })
         .catch((err) => {
           let msgErro = err.response.data.err;
