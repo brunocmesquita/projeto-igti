@@ -20,7 +20,7 @@
                 ><v-col class="">
                   <div class="pa-12">
                     <v-img
-                      lazy-src="../assets/casper.jpeg"
+                      lazy-src="../assets/casper2.png"
                       max-height="250"
                       max-width="350"
                       src="../assets/casper.jpeg"

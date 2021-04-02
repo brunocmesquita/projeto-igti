@@ -6,7 +6,7 @@
           lazy-src="../assets/casper.jpeg"
           max-height="250"
           max-width="350"
-          src="../assets/casper.jpeg"
+          src="../assets/casper2.png"
         ></v-img>
       </div>
     </v-col>

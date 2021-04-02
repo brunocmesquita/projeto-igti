@@ -5,8 +5,14 @@
         class="d-flex d-sm-none"
         @click.stop="drawer = !drawer"
       ></v-app-bar-nav-icon>
-      <v-app-bar-title class="text-uppercase red--text text--darken-3">
-        <span>Casper</span>
+      <v-img
+        max-height="50"
+        max-width="50"
+        src="./assets/justLogo.png"
+        position="center"
+      ></v-img>
+      <v-app-bar-title class="pl-3 text-uppercase red--text text--darken-3">
+        <span> Casper</span>
         <span class="font-weight-light">Seguros</span>
       </v-app-bar-title>
       <v-spacer></v-spacer>
