@@ -1,6 +1,7 @@
 <template>
   <v-container>
-    <v-row>
+    <data-table></data-table>
+    <!-- <v-row>
       <v-col cols="12" sm="12">
         <v-card
           color="grey lighten-3"
@@ -27,33 +28,37 @@
           >
         </v-card>
       </v-col>
-    </v-row>
+    </v-row> -->
   </v-container>
 </template>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
+import DataTable from '../../components/DataTable';
 export default {
-  created() {
-    let req = {
-      headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-      },
-    };
-    axios
-      .get('http://localhost:8686/contact', req)
-      .then((res) => {
-        console.log(res);
-        this.contacts = res.data;
-      })
-      .catch((err) => console.log(err));
-    console.log('Olá');
+  components: {
+    DataTable,
   },
-  data() {
-    return {
-      contacts: [],
-    };
-  },
+  // created() {
+  //   let req = {
+  //     headers: {
+  //       Authorization: 'Bearer ' + localStorage.getItem('token'),
+  //     },
+  //   };
+  //   axios
+  //     .get('http://localhost:8686/contact', req)
+  //     .then((res) => {
+  //       console.log(res);
+  //       this.contacts = res.data;
+  //     })
+  //     .catch((err) => console.log(err));
+  //   console.log('Olá');
+  // },
+  // data() {
+  //   return {
+  //     contacts: [],
+  //   };
+  // },
 };
 </script>
 

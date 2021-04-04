@@ -43,9 +43,6 @@
       </v-card-text>
       <v-divider></v-divider>
       <v-card-actions>
-        <v-btn icon color="pink">
-          <v-icon>mdi-heart</v-icon>
-        </v-btn>
         <v-spacer></v-spacer>
         <v-btn color="red darken-3" dark @click="register">Cadastrar</v-btn>
       </v-card-actions>
