@@ -12,11 +12,11 @@ function AdminAuth(to, from, next) {
     };
 
     axios
-      .post('http://localhost:8686/validate', {}, req)
+      .post('http://localhost:3333/sessions/validate', {}, req)
       .then(() => {
         next();
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err.response);
         next('/login');
       });

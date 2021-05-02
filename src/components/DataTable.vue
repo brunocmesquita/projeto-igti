@@ -29,12 +29,11 @@ export default {
       },
     };
     axios
-      .get('http://localhost:8686/contact', req)
-      .then((res) => {
-        console.log(res);
+      .get('http://localhost:3333/contacts', req)
+      .then(res => {
         this.contacts = res.data;
       })
-      .catch((err) => console.log(err));
+      .catch(err => console.log(err));
     console.log('Olá');
   },
   data() {
@@ -49,7 +48,7 @@ export default {
           class: 'text-uppercase',
         },
         { text: 'Email', value: 'email', class: 'text-uppercase' },
-        { text: 'Telefone', value: 'fone', class: 'text-uppercase' },
+        { text: 'Telefone', value: 'phone', class: 'text-uppercase' },
         { text: 'Seguro', value: 'insurance', class: 'text-uppercase' },
       ],
       contacts: [],

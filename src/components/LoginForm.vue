@@ -5,7 +5,7 @@
         <h1 class="display-1">Login</h1>
       </v-card-title>
       <v-card-text
-        >Cadastro permitido apenas para colaboradores da Casper
+        >Acesso permitido apenas para colaboradores da Casper
         Seguros.</v-card-text
       >
       <v-card-text>
@@ -55,16 +55,16 @@ export default {
   methods: {
     login() {
       axios
-        .post('http://localhost:8686/login', {
+        .post('http://localhost:3333/sessions', {
           password: this.password,
           email: this.email,
         })
-        .then((res) => {
+        .then(res => {
           localStorage.setItem('token', res.data.token);
           this.$router.push({ name: 'PainelAdmin' });
         })
-        .catch((err) => {
-          let msgErro = err.response.data.err;
+        .catch(err => {
+          let msgErro = err;
           this.error = msgErro;
         });
     },

@@ -28,7 +28,7 @@
           />
           <v-text-field
             label="Número de telefone"
-            v-model="fone"
+            v-model="phone"
             prepend-icon="mdi-cellphone"
             type="number"
             counter="11"
@@ -75,9 +75,9 @@ export default {
   methods: {
     register() {
       axios
-        .post('http://localhost:8686/contact', {
+        .post('http://localhost:3333/contacts', {
           name: this.name,
-          fone: this.fone,
+          phone: this.phone,
           email: this.email,
           insurance: this.insurance,
         })
