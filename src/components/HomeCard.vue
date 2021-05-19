@@ -1,39 +1,49 @@
 <template>
-  <v-content>
-    <v-row class="py-3 ">
+  <v-container>
+    <v-row class="py-3">
       <v-col v-for="card in cards" :key="`${card.title}-card`" cols="12" sm="4">
-        <v-card
-          color="grey lighten-3"
-          elevation="3"
-          outlined
-          class="pa-2 d-flex align-content-start flex-wrap"
-        >
-          <v-card-title>
-            <v-icon left color="black">{{ card.icon }}</v-icon>
-            {{ card.title }}
-          </v-card-title>
-          <v-card-subtitle>
-            {{ card.subtitle }}
-          </v-card-subtitle>
-          <v-card-text>
-            {{ card.text }}
-          </v-card-text>
-          <v-card-actions>
-            <saibamais-dialog :title="card.title"></saibamais-dialog>
-          </v-card-actions>
-        </v-card>
+        <v-hover v-slot="{ hover }">
+          <v-card
+            color="grey lighten-3"
+            :elevation="hover ? 12 : 2"
+            outlined
+            :class="{ 'on-hover': hover }"
+            class=" d-flex align-content-start flex-wrap "
+          >
+            <v-card-title>
+              <v-icon left color="black">{{ card.icon }}</v-icon>
+              {{ card.title }}
+            </v-card-title>
+            <v-card-subtitle>
+              {{ card.subtitle }}
+            </v-card-subtitle>
+            <v-card-text>
+              {{ card.text }}
+            </v-card-text>
+            <v-card-actions>
+              <saibamais-dialog :title="card.title"></saibamais-dialog>
+            </v-card-actions>
+          </v-card>
+        </v-hover>
       </v-col>
     </v-row>
     <v-row>
       <v-col>
         <div class="text-center mt-4 mb-4">
-          <v-btn dark color="red darken-3" rounded x-large to="/cotacao">
+          <v-btn
+            dark
+            color="red darken-3"
+            rounded
+            x-large
+            elevation="10"
+            to="/cotacao"
+          >
             Peça uma cotação
           </v-btn>
         </div>
       </v-col>
     </v-row>
-  </v-content>
+  </v-container>
 </template>
 
 <script>
@@ -75,3 +85,13 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.v-card {
+  transition: opacity 0.4s ease-in-out;
+}
+
+.show-btns {
+  color: rgba(255, 255, 255, 1) !important;
+}
+</style>

@@ -15,7 +15,8 @@
       :items-per-page="5"
       :search="search"
       class="elevation-1 grey lighten-3 text-lg-h6"
-    ></v-data-table>
+    >
+    </v-data-table>
   </v-card>
 </template>
 
@@ -50,6 +51,7 @@ export default {
         { text: 'Email', value: 'email', class: 'text-uppercase' },
         { text: 'Telefone', value: 'phone', class: 'text-uppercase' },
         { text: 'Seguro', value: 'insurance', class: 'text-uppercase' },
+        { text: 'Observação', value: 'observation', class: 'text-uppercase' },
       ],
       contacts: [],
     };

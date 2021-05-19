@@ -1,5 +1,9 @@
 <template>
   <v-container>
+    <p v-if="msg" class="text-title">
+      Obrigado pelo seu contato. Um de nossos consultores irá entrar com você.
+      Você será redirecionado para página principal.
+    </p>
     <v-card width="700" class="mx-auto mt-5 grey lighten-3">
       <v-card-title>
         <h1 class="display-1">Formulário de contato</h1>
@@ -56,6 +60,7 @@ export default {
   data() {
     return {
       items: ['Auto', 'Residencial', 'Vida'],
+      msg: false,
       name: '',
       email: '',
       fone: '',
@@ -63,9 +68,9 @@ export default {
       error: undefined,
       showPassword: false,
       rules: {
-        required: (value) => !!value || 'Required.',
-        counter: (value) => value.length <= 20 || 'Max 20 characters',
-        email: (value) => {
+        required: value => !!value || 'Required.',
+        counter: value => value.length <= 20 || 'Max 20 characters',
+        email: value => {
           const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
           return pattern.test(value) || 'Invalid e-mail.';
         },
@@ -81,11 +86,14 @@ export default {
           email: this.email,
           insurance: this.insurance,
         })
-        .then((res) => {
+        .then(res => {
           console.log(res);
-          this.$router.push({ name: 'Home' });
+          this.msg = true;
+          setTimeout(() => {
+            this.$router.push({ name: 'Home' });
+          }, 10000);
         })
-        .catch((err) => {
+        .catch(err => {
           let msgErro = err.response.data.err;
           this.error = msgErro;
         });
