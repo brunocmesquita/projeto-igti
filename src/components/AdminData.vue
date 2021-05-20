@@ -3,23 +3,18 @@
     <v-card class="py-4 grey lighten-3 mb-3">
       <v-card-actions class="px-5">
         <v-spacer></v-spacer>
-        <v-btn
-          color="primary"
-          large
-          class="mx-2"
-          @click="toggleInsertObservation"
-          >Inserir observação</v-btn
-        >
-        <v-btn color="primary" large class="mx-2" @click="toogleCreateContact"
-          >Novo Contato</v-btn
-        >
-        <v-btn class="mx-2" color="primary" large @click="toggleInsertContacted"
-          >Marcar Contato</v-btn
-        >
+        <base-largebtn @event="toggleInsertObservation">
+          Inserir observação
+        </base-largebtn>
+        <base-largebtn @event="toggleCreateContact">
+          Novo Contato
+        </base-largebtn>
+        <base-largebtn @event="toggleInsertContacted">
+          Marcar Contato
+        </base-largebtn>
         <v-spacer></v-spacer>
       </v-card-actions>
     </v-card>
-
     <v-alert
       v-if="error != undefined"
       class="font-weight-bold red--text red lighten-4"
@@ -57,7 +52,7 @@
       <v-text-field
         dense
         label="Id do contato"
-        v-model="idObservation"
+        v-model="idContacted"
       ></v-text-field>
       <v-text-field
         dense
@@ -71,7 +66,7 @@
         >
       </v-card-actions>
     </v-card>
-    <v-card v-show="toggleContact" class="grey lighten-3 mx-auto mb-10 px-5">
+    <v-card v-show="toggleCreate" class="grey lighten-3 mx-auto mb-10 px-5">
       <p class="pt-2">
         Informe os dados para inserção de contato
       </p>
@@ -117,18 +112,28 @@
       <v-data-table
         :headers="headers"
         :items="contacts"
-        :items-per-page="5"
+        :items-per-page="10"
         :search="search"
-        class="elevation-1 grey lighten-3 text-lg-h6"
+        class="elevation-1 grey lighten-3 "
       >
+        <template v-slot:[`item.contacted`]="{ item }">
+          <v-simple-checkbox
+            v-model="item.contacted"
+            disabled
+          ></v-simple-checkbox>
+        </template>
       </v-data-table>
     </v-card>
   </v-container>
 </template>
 
 <script>
+import BaseLargebtn from '../shared/BaseLayout/BaseLargebtn';
 import axios from 'axios';
 export default {
+  components: {
+    BaseLargebtn,
+  },
   created() {
     let req = {
       headers: {
@@ -152,26 +157,27 @@ export default {
       insuranceContact: '',
       observationContact: '',
       idObservation: '',
+      idContacted: '',
       newObservation: '',
       toggleObservation: false,
       toggleContacted: false,
-      toggleContact: false,
+      toggleCreate: false,
       error: undefined,
+      contacts: [],
       headers: [
         {
           text: 'Id',
           align: 'start',
-          sortable: true,
+          sortable: false,
           value: 'id',
-          class: 'text-uppercase',
         },
-        { text: 'Nome', value: 'name', class: 'text-uppercase' },
-        { text: 'Email', value: 'email', class: 'text-uppercase' },
-        { text: 'Telefone', value: 'phone', class: 'text-uppercase' },
-        { text: 'Seguro', value: 'insurance', class: 'text-uppercase' },
-        { text: 'Observação', value: 'observation', class: 'text-uppercase' },
+        { text: 'Nome', value: 'name' },
+        { text: 'Email', value: 'email' },
+        { text: 'Telefone', value: 'phone' },
+        { text: 'Seguro', value: 'insurance' },
+        { text: 'Observação', value: 'observation' },
+        { text: 'Contato', value: 'contacted' },
       ],
-      contacts: [],
     };
   },
   methods: {
@@ -188,25 +194,39 @@ export default {
           this.error = msgErro;
         });
     },
+    insertContacted() {
+      axios
+        .put(`http://localhost:3333/contacts/contacted${this.idContacted}`, {
+          contacted: true,
+          observation: this.newObservation,
+        })
+        .then(() => {
+          this.toggleObservation = false;
+        })
+        .catch(err => {
+          let msgErro = err.response.data.err;
+          this.error = msgErro;
+        });
+    },
     toggleInsertObservation() {
       this.toggleObservation = !this.toggleObservation;
       if (this.toggleObservation) {
         this.toggleContacted = false;
-        this.toogleContact = false;
+        this.toggleContact = false;
       }
     },
     toggleInsertContacted() {
       this.toggleContacted = !this.toggleContacted;
       if (this.toggleContacted) {
+        this.toggleCreate = false;
         this.toggleObservation = false;
-        this.toogleContact = false;
       }
     },
-    toogleCreateContact() {
-      this.toggleContact = !this.toggleContact;
-      if (this.toogleContact) {
-        this.toggleObservation = false;
+    toggleCreateContact() {
+      this.toggleCreate = !this.toggleCreate;
+      if (this.toggleCreate) {
         this.toggleContacted = false;
+        this.toggleObservation = false;
       }
     },
     createContact() {
