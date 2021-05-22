@@ -1,5 +1,5 @@
 <template>
-  <v-carousel v-model="model" height="300" class="mt-5">
+  <v-carousel height="300" class="mt-5">
     <v-carousel-item>
       <v-sheet color="grey lighten-2" height="100%" tile>
         <v-row class="fill-height" align="center" justify="center">
