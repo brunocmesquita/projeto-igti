@@ -57,9 +57,9 @@ export default {
       error: undefined,
       showPassword: false,
       rules: {
-        required: (value) => !!value || 'Required.',
-        counter: (value) => value.length <= 20 || 'Max 20 characters',
-        email: (value) => {
+        required: value => !!value || 'Required.',
+        counter: value => value.length <= 20 || 'Max 20 characters',
+        email: value => {
           const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
           return pattern.test(value) || 'Invalid e-mail.';
         },
@@ -69,16 +69,16 @@ export default {
   methods: {
     register() {
       axios
-        .post('http://localhost:8686/user', {
+        .post('http://localhost:3333/users', {
           name: this.name,
           password: this.password,
           email: this.email,
         })
-        .then((res) => {
+        .then(res => {
           console.log(res);
           this.$router.push({ name: 'Login' });
         })
-        .catch((err) => {
+        .catch(err => {
           let msgErro = err.response.data.err;
           this.error = msgErro;
         });
