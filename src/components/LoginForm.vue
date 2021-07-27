@@ -60,8 +60,13 @@ export default {
           email: this.email,
         })
         .then(res => {
+          console.log(res);
           localStorage.setItem('token', res.data.token);
-          this.$router.push({ name: 'PainelAdmin' });
+          if (res.data.user.role === 1) {
+            this.$router.push({ name: 'PainelAdmin' });
+          } else {
+            throw new Error('Usuário não autorizado');
+          }
         })
         .catch(err => {
           let msgErro = err;

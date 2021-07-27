@@ -91,7 +91,7 @@ export default {
           this.msg = true;
           setTimeout(() => {
             this.$router.push({ name: 'Home' });
-          }, 10000);
+          }, 5000);
         })
         .catch(err => {
           let msgErro = err.response.data.err;
